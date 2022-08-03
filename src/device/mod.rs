@@ -1,4 +1,4 @@
 pub mod joystick;
 pub mod keyboard;
 
-// TODO 似乎手柄和键盘都可以用 input_event 接受数据
+// TODO:refactor 手柄的 JoystickEvent 和键盘的 libc::input_event 共用

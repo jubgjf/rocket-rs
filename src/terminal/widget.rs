@@ -1,4 +1,4 @@
-use crate::terminal::utils::print_at;
+use crate::print_at;
 
 /// 坐标
 pub struct Point {
@@ -61,17 +61,5 @@ impl Widget {
     pub fn update(&mut self, uid: &String, widget: Widget) {
         self.delete(uid);
         self.add(widget);
-    }
-}
-
-/// 清空终端
-pub fn clean_screen(w: u16, h: u16) {
-    let mut empty_line = String::new();
-    for _ in 0..w {
-        empty_line.push(' ');
-    }
-
-    for y in 1..h + 1 {
-        print_at(0, y, &empty_line);
     }
 }

@@ -42,7 +42,7 @@ impl Clone for JoystickEvent {
     }
 }
 
-/// 打开 /dev/input/js0 最为手柄，并获得对应的 fd
+/// 打开 /dev/input/js0 作为手柄，并获得对应的 fd
 ///
 /// 打开失败时将会 panic
 pub fn get_fd() -> i32 {

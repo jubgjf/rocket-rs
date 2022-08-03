@@ -60,3 +60,37 @@ pub fn print_at(x: u16, y: u16, s: &String) {
 
     // TODO 打印字符串越界处理
 }
+
+/// 清空终端
+pub fn clean_screen(w: u16, h: u16) {
+    let mut empty_line = String::new();
+    for _ in 0..w {
+        empty_line.push(' ');
+    }
+
+    for y in 1..h + 1 {
+        print_at(0, y, &empty_line);
+    }
+}
+
+/// 禁用键盘输入时的终端回显
+pub fn no_echo() {
+    let mut term = libc::termios {
+        c_iflag: 0,
+        c_oflag: 0,
+        c_cflag: 0,
+        c_lflag: 0,
+        c_line: 0,
+        c_cc: [0; libc::NCCS],
+        c_ispeed: 0,
+        c_ospeed: 0,
+    };
+    if unsafe { libc::tcgetattr(libc::STDIN_FILENO, &mut term) } < 0 {
+        panic!("tcgetattr");
+    }
+
+    term.c_lflag &= !libc::ECHO;
+    if unsafe { libc::tcsetattr(libc::STDIN_FILENO, 0, &term) } < 0 {
+        panic!("tcsetattr");
+    }
+}
