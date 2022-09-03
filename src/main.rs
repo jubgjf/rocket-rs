@@ -19,9 +19,10 @@ fn main() {
             input_tx.send(keys).unwrap();
         });
 
-        // 刷新率定时器线程
+        // 刷新率定时器线程 -> 20 fps
+        let fps = 20_f32;
         thread::spawn(move || loop {
-            thread::sleep(time::Duration::from_secs_f32(0.05));
+            thread::sleep(time::Duration::from_secs_f32(1_f32 / fps));
             timer_tx.send(()).unwrap();
         });
 
